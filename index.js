@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://letschatus.netlify.app/",
+    origin: "https://letschatus.netlify.app",
     methods: ["GET", "POST"],
   },
 });
