@@ -15,6 +15,8 @@ const io = new Server(server, {
   },
 });
 
+const connectedUsers = [];
+
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
@@ -22,6 +24,11 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log(`User with ID: ${socket.id} joined room: ${room}`);
     console.log(`Username: ${username}`);
+
+    connectedUsers.push({ id: socket.id, username });
+    
+    // Emit the updated user list to all clients in the room
+    io.to(room).emit("user_list", connectedUsers);
   });
 
   socket.on("send_message", (data) => {
