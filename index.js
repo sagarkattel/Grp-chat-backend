@@ -37,6 +37,14 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
+    // Remove the disconnected user from the connectedUsers list
+    const index = connectedUsers.findIndex((user) => user.id === socket.id);
+    if (index !== -1) {
+      connectedUsers.splice(index, 1);
+    }
+
+    // Emit the updated user list to all clients in the room
+    io.emit("user_list", connectedUsers);
   });
 });
 
