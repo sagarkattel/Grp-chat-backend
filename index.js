@@ -3,13 +3,14 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
+
 app.use(cors());
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://letschatus.netlify.app/",
+    origin: "https://letschatus.netlify.app",
     methods: ["GET", "POST"],
   },
 });
